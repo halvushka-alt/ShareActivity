@@ -15,7 +15,19 @@ class MainActivity : AppCompatActivity() {
 
         // When the user clicks this button, share the text if not empty
         findViewById<ImageButton>(R.id.shareImageButton).setOnClickListener {
+            val text = editText.text.toString()
 
+            if (text.isNotEmpty()) {
+                // Create share intent
+                val shareIntent = android.content.Intent().apply {
+                    action = android.content.Intent.ACTION_SEND
+                    putExtra(android.content.Intent.EXTRA_TEXT, text)
+                    type = "text/plain"
+                }
+                startActivity(
+                    android.content.Intent.createChooser(shareIntent, "Share using")
+                )
+            }
         }
     }
 }
